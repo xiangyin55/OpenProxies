@@ -18,14 +18,14 @@ if __name__ == "__main__":
         result.append(useful_proxies)
     pool.close()
     pool.join()
+
     # 将较快的代理保存在data数组中，写入文件
     for r in result:
         for proxy in r.get():
-            data.append(proxy)
+            data.append(proxy['https'].split('//')[-1])
+
     path = config.PATH + config.NAME
-    f = open(path,"w")
-    f.write(json.dumps(data))
-    f.close()
+    open(path,"w").write("\n".join(data))
     print("useful ips save succeed")
     e = time.time()
     print("总时间",e-s)
